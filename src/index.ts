@@ -5,14 +5,22 @@ const boardElement = document.getElementById("board");
 const ROW_COUNT = 3;
 const COL_COUNT = 3;
 
-let boardState = [
+type Move = "X" | "O";
+type CellValue = "" | Move;
+type TicTacToeBoard = [
+    [CellValue, CellValue, CellValue],
+    [CellValue, CellValue, CellValue],
+    [CellValue, CellValue, CellValue]
+]
+
+let boardState: TicTacToeBoard = [
   ["", "", ""],
   ["", "", ""],
   ["", "", ""]
 ];
-let currentMove = "X";
+let currentMove: Move = "X";
 
-function createCell(row, col, content = "") {
+function createCell(row: number, col: number, content: CellValue = "") {
   const cell = document.createElement("button");
   cell.setAttribute("data-row", row.toString());
   cell.setAttribute("data-col", col.toString());
@@ -27,7 +35,7 @@ function renderBoard() {
   boardElement.innerHTML = "";
   for (let i = 0; i < ROW_COUNT; i++) {
     for (let j = 0; j < COL_COUNT; j++) {
-      boardElement.appendChild(createCell(i, j, boardState[i][j]));
+      boardElement.appendChild(createCell(i, j, boardState[i][j] as CellValue));
     }
   }
   const oldMoveElement = document.getElementById("move-element");
